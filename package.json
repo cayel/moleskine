@@ -1,0 +1,9 @@
+{
+  "name": "moleskine",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.5.1",
+    "body-parser": "^1.10.0",
+    "method-override": "^2.3.1"
+  }
+}
