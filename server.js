@@ -5,11 +5,19 @@ var express        = require('express');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
-
+var mongoose       = require('mongoose');
 // configuration ===========================================
 
 // config files
 //var db = require('./config/db');
+//mongoose.connect('mongodb://localhost/todoApp', function(err) {
+mongoose.connect('mongodb://moleskine:mole1971@ds031631.mongolab.com:31631/moleskine', function(err) {
+  if(err) {
+    console.log('connection error', err);
+  } else {
+    console.log('connection successful');
+  }
+});
 
 // set our port
 var port = process.env.PORT || 8080;

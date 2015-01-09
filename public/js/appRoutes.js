@@ -13,6 +13,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
   .when('/bds', {
     templateUrl: 'views/bds.html',
     controller: 'BdController'
+  })
+
+  // todos
+  .when('/todos', {
+    templateUrl: 'views/todos.html',
+    controller: 'ToDoController'
   });
 
   $locationProvider.html5Mode(true);
