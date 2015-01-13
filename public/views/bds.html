@@ -7,18 +7,40 @@
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Titre</th>
-      <th>Auteur</th>
-      <th>Note</th>
+      <th style="width:10%;">Date</th>
+      <th style="width:35%;">Titre</th>
+      <th style="width:25%;">Scenariste</th>
+      <th style="width:25%;">Dessinateur</th>
+      <th style="width:5%;">Note</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>01/01/2015</td>
-      <td>Blast - 1. Grasse carcasse</td>
-      <td>Manu Larcenet</td>
-      <td>4</td>
+    <tr  ng-repeat="bd in bds">
+      <td>{{ bd.date | date:'dd/MM/yyyy'}}</td>
+      <td>{{ bd.titre }}</td>
+      <td>{{ bd.scenariste }}</td>
+      <td>{{ bd.dessinateur }}</td>
+      <td>{{ bd.note }}</td>
     </tr>
   </tbody>
 </table>
+
+<!-- FORM TO CREATE BDS -->
+<div id="bd-form" class="row">
+  <div class="col-sm-8 col-sm-offset-2 text-center">
+    <form>
+      <div class="form-group">
+
+        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+        <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
+        <input type="text" class="form-control input-lg text-center" placeholder="Scenariste" ng-model="formData.scenariste">
+        <input type="text" class="form-control input-lg text-center" placeholder="Dessinateur" ng-model="formData.dessinateur">
+        <input type="date" class="form-control input-lg text-center" placeholder="Date" ng-model="formData.date">
+        <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note">
+      </div>
+
+      <!-- createBd() WILL CREATE NEW TODOS -->
+      <button type="submit" class="btn btn-primary btn-lg" ng-click="createBd()">Add</button>
+    </form>
+  </div>
+</div>

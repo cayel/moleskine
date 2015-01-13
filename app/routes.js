@@ -2,6 +2,7 @@
 
 // grab the nerd model we just created
 var Todo = require('../models/Todo.js');
+var Bd = require('../models/Bd.js');
 
 module.exports = function(app) {
 
@@ -44,7 +45,7 @@ module.exports = function(app) {
       });
 
     // route to handle creating goes here (app.post)
-    
+
     // delete a todo
     app.delete('/api/todos/:todo_id', function(req, res) {
       Todo.remove({
@@ -61,6 +62,42 @@ module.exports = function(app) {
             });
           });
         });
+
+        app.get('/api/bds', function(req, res) {
+
+          // use mongoose to get all bds in the database
+          Bd.find(function(err, bds) {
+
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err)
+              res.send(err)
+
+              res.json(bds); // return all todos in JSON format
+            });
+          });
+
+        // create BD and send back all todos after creation
+        app.post('/api/bds', function(req, res) {
+
+          Bd.create({
+            titre : req.body.titre,
+            scenariste : req.body.scenariste,
+            dessinateur : req.body.dessinateur,
+            date : req.body.date,
+            note : req.body.note
+          }, function(err, bd) {
+            if (err)
+              res.send(err);
+
+              // get and return all the todos after you create another
+              Bd.find(function(err, bds) {
+                if (err)
+                  res.send(err)
+                  res.json(bds);
+                });
+              });
+
+            });
 
     // frontend routes =========================================================
     // route to handle all angular requests
