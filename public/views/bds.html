@@ -26,21 +26,36 @@
 </table>
 
 <!-- FORM TO CREATE BDS -->
-<div id="bd-form" class="row">
-  <div class="col-sm-8 col-sm-offset-2 text-center">
-    <form>
-      <div class="form-group">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bdModal">
+  Ajouter une BD
+</button>
 
-        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-        <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
-        <input type="text" class="form-control input-lg text-center" placeholder="Scenariste" ng-model="formData.scenariste">
-        <input type="text" class="form-control input-lg text-center" placeholder="Dessinateur" ng-model="formData.dessinateur">
-        <input type="date" class="form-control input-lg text-center" placeholder="Date" ng-model="formData.date">
-        <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note">
+<!-- Modal -->
+<div class="modal fade" id="bdModal" tabindex="-1" role="dialog" aria-labelledby="bdModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="bdModalLabel">Fiche BD</h4>
       </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
 
-      <!-- createBd() WILL CREATE NEW TODOS -->
-      <button type="submit" class="btn btn-primary btn-lg" ng-click="createBd()">Add</button>
-    </form>
+            <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+            <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
+            <input type="text" class="form-control input-lg text-center" placeholder="Scenariste" ng-model="formData.scenariste">
+            <input type="text" class="form-control input-lg text-center" placeholder="Dessinateur" ng-model="formData.dessinateur">
+            <input type="date" class="form-control input-lg text-center" placeholder="Date" ng-model="formData.date">
+            <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="submit" class="btn btn-primary" ng-click="createBd()">Enregistrer</button>
+      </div>
+    </div>
   </div>
 </div>
