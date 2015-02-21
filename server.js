@@ -10,9 +10,11 @@ var mongoose       = require('mongoose');
 
 // config files
 //var db = require('./config/db');
+// TEST-LOCAL
 //mongoose.connect('mongodb://localhost/todoApp', function(err) {
+// TEST-DISTANT
 //mongoose.connect('mongodb://moleskine:moleskine@ds029541.mongolab.com:29541/moleskine_test', function(err) {
-
+// PRODUCTION
 mongoose.connect('mongodb://moleskine:mole1971@ds031631.mongolab.com:31631/moleskine', function(err) {
   if(err) {
     console.log('connection error', err);

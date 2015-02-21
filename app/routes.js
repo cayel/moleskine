@@ -76,29 +76,82 @@ module.exports = function(app) {
             });
           });
 
-        // create BD and send back all todos after creation
-        app.post('/api/bds', function(req, res) {
+// create BD and send back all todos after creation
+app.post('/api/bds', function(req, res) {
 
-          Bd.create({
-            titre : req.body.titre,
-            scenariste : req.body.scenariste,
-            dessinateur : req.body.dessinateur,
-            date : req.body.date,
-            note : req.body.note
-          }, function(err, bd) {
-            if (err)
-              res.send(err);
+  Bd.create({
+    titre : req.body.titre,
+    scenariste : req.body.scenariste,
+    dessinateur : req.body.dessinateur,
+    date : req.body.date,
+    note : req.body.note
+  }, function(err, bd) {
+    if (err)
+      res.send(err);
 
-              // get and return all the todos after you create another
-              Bd.find(function(err, bds) {
-                if (err)
-                  res.send(err)
-                  res.json(bds);
-                });
-              });
+      // get and return all the todos after you create another
+      Bd.find(function(err, bds) {
+        if (err)
+          res.send(err)
+          res.json(bds);
+        });
+      });
 
-            });
+    });
 
+app.put('/api/bd/:bd_id',function(req, res) {
+  console.log(req.params.bd_id);
+  Bd.findOne({_id: req.params.bd_id},function(err, bd) {
+        if (bd){
+          console.log('ok bd');
+          console.log(req.body.date);
+   bd.titre = req.body.titre;
+   bd.scenariste = req.body.scenariste,
+   bd.dessinateur = req.body.dessinateur,
+   bd.date = req.body.date,
+   bd.note = req.body.note
+   bd.save(function(err) {
+     if (err) res.send(err);
+     Bd.find(function(err, bds) {
+       if (err)
+        res.send(err)
+        res.json(bds);
+      });
+    });
+            } else {
+              console.log('erreur findone');
+          res.send(err);
+        }
+    });
+  });
+
+
+                   // supprimer une bd
+                   app.delete('/api/bd/:bd_id', function(req, res) {
+                     Bd.remove({
+                       _id : req.params.bd_id
+                     }, function(err, bd) {
+                       if (err)
+                         res.send(err);
+
+                         // get and return all the todos after you create another
+                         Bd.find(function(err, bds) {
+                           if (err)
+                             res.send(err)
+                             res.json(bds);
+                           });
+                         });
+                       });
+
+                      // récupérer une bd
+                      /* GET /todos/id */
+                      app.get('/api/bd/:bd_id', function(req, res, next) {
+                        Bd.findById(req.params.bd_id, function (err, bd) {
+                          if (err) return next(err);
+                          console.log(bd);
+                          res.json(bd);
+                        });
+                      });
     // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {
@@ -106,3 +159,6 @@ module.exports = function(app) {
     });
 
   };
+
+//http://www.kdelemme.com/2014/09/20/build-single-page-application-with-angular-node-mongo-part-ii/
+//routes ...

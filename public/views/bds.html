@@ -7,11 +7,12 @@
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
-      <th style="width:10%;">Date</th>
-      <th style="width:35%;">Titre</th>
+      <th style="width:6%;">Date</th>
+      <th style="width:31%;">Titre</th>
       <th style="width:25%;">Scenariste</th>
       <th style="width:25%;">Dessinateur</th>
-      <th style="width:5%;">Note</th>
+      <th style="width:4%;">Note</th>
+      <th style="width:9%;"></th>
     </tr>
   </thead>
   <tbody>
@@ -21,13 +22,21 @@
       <td>{{ bd.scenariste }}</td>
       <td>{{ bd.dessinateur }}</td>
       <td>{{ bd.note }}</td>
+      <td>
+        <button type="button" class="btn btn-default" aria-label="Modifier" ng-click="getBd(bd._id)" data-toggle="modal" data-target="#bdModal">
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        </button>
+        <button type="button" type="submit" class="btn btn-default" aria-label="Supprimer" ng-click="deleteBd(bd._id)">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
 
 <!-- FORM TO CREATE BDS -->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bdModal">
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bdModal" ng_click="newBd()">
   Ajouter une BD
 </button>
 
@@ -40,21 +49,27 @@
         <h4 class="modal-title" id="bdModalLabel">Fiche BD</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form name="bdForm">
           <div class="form-group">
-
+            
             <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
             <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
             <input type="text" class="form-control input-lg text-center" placeholder="Scenariste" ng-model="formData.scenariste">
             <input type="text" class="form-control input-lg text-center" placeholder="Dessinateur" ng-model="formData.dessinateur">
-            <input type="date" class="form-control input-lg text-center" placeholder="Date" ng-model="formData.date">
-            <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note">
+            <input type="date"  placeholder="Date" class="form-control input-lg text-center" ng-model="dateBd">         
+            <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note" >
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-        <button type="submit" class="btn btn-primary" ng-click="createBd()">Enregistrer</button>
+        <div ng-show="vueBd=='newBd'">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn-primary" ng-click="createBd()">Enregistrer</button>
+        </div>
+        <div ng-show="vueBd=='modifBd'">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn-primary" ng-click="updateBd(formData._id)">Mettre à jour</button>
+        </div>
       </div>
     </div>
   </div>
