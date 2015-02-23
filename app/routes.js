@@ -3,6 +3,7 @@
 // grab the nerd model we just created
 var Todo = require('../models/Todo.js');
 var Bd = require('../models/Bd.js');
+var Concert = require('../models/Concert.js');
 
 module.exports = function(app) {
 
@@ -152,7 +153,88 @@ app.put('/api/bd/:bd_id',function(req, res) {
                           res.json(bd);
                         });
                       });
-    // frontend routes =========================================================
+
+	////////////////////////////////////////////
+	// API Concerts
+	////////////////////////////////////////////
+	
+	// Liste des concerts
+	app.get('/api/concerts', function(req, res) {
+		Concert.find(function(err, concerts) {
+			if (err)
+				res.send(err)
+             res.json(concerts); 
+        });
+    });
+
+	// Création d'un concert et renvoi de la liste des concerts
+	app.post('/api/concerts', function(req, res) {
+		Concert.create({
+			artiste : req.body.artiste,
+			avec : req.body.avec,
+			salle : req.body.salle,
+			date : req.body.date,
+			note : req.body.note
+		}, function(err, concert) {
+			if (err)
+				res.send(err);
+			Concert.find(function(err, concerts) {
+				if (err)
+					res.send(err)
+				res.json(concerts);
+			});
+		});
+    });
+
+	// Mise à jour d'un concert
+	app.put('/api/concert/:concert_id',function(req, res) {
+		console.log(req.params.concert_id);
+		Concert.findOne({_id: req.params.concert_id},function(err, concert) {
+			if (concert){
+				concert.artiste = req.body.artiste;
+				concert.avec = req.body.avec,
+				concert.salle = req.body.salle,
+				concert.date = req.body.date,
+				concert.note = req.body.note
+				concert.save(function(err) {
+					if (err) res.send(err);
+					Concert.find(function(err, concerts) {
+						if (err)
+							res.send(err)
+						res.json(concerts);
+					});
+				});
+            } else {
+				console.log('erreur findone');
+				res.send(err);
+			}
+		});
+	});
+
+	// Suppression d'un concert
+	app.delete('/api/concert/:concert_id', function(req, res) {
+		Concert.remove({
+			_id : req.params.concert_id
+		}, function(err, concert) {
+			if (err)
+				res.send(err);
+            Concert.find(function(err, concerts) {
+				if (err)
+					res.send(err)
+				res.json(concerts);
+            });
+        });
+    });
+
+	// Récupération d'un concert
+	app.get('/api/concert/:concert_id', function(req, res, next) {
+		Concert.findById(req.params.concert_id, function (err, concert) {
+			if (err) return next(err);
+            res.json(concert);
+        });
+    });
+
+					  // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {
       res.sendfile('./public/views/index.html'); // load our public/index.html file

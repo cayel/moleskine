@@ -1,22 +1,22 @@
-// public/js/services/BdService.js
-angular.module('BdService', []).factory('Bd', ['$http', function($http) {
+// public/js/services/ConcertService.js
+angular.module('ConcertService', []).factory('Concert', ['$http', function($http) {
 
   return {
-    // call to get all bds
+    // call to get all concerts
     get : function() {
-      return $http.get('/api/bds');
+      return $http.get('/api/concerts');
     },
 
 
     // these will work when more API routes are defined on the Node side of things
-    // call to POST and create a new bd
-    create : function(bdData) {
-      return $http.post('/api/bd', bdData);
+    // call to POST and create a new concert
+    create : function(concertData) {
+      return $http.post('/api/concert', concertData);
     },
 
-    // call to DELETE a bd
+    // call to DELETE a concert
     delete : function(id) {
-      return $http.delete('/api/bd/' + id);
+      return $http.delete('/api/concert/' + id);
     }
   }
 

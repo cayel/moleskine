@@ -4,6 +4,18 @@
   <p>{{ tagline }}</p>
 </div>
 
+<div class="spacer input-group">
+	<div class="input-group-addon">
+		<span class="glyphicon glyphicon-search"></span>
+	</div>
+	<input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher ..."/>
+	<div class="input-group-btn">
+		<button class="btn btn-default" ng-click="razRecherche()">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</div>
+</div>
+<br>
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
@@ -16,10 +28,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr  ng-repeat="bd in bds">
+    <tr  ng-repeat="bd in bds | filter:recherche">
       <td>{{ bd.date | date:'dd/MM/yyyy'}}</td>
       <td>{{ bd.titre }}</td>
-      <td>{{ bd.scenariste }}</td>
+      <td>{{ bd.scenariste }}</td>	  
       <td>{{ bd.dessinateur }}</td>
       <td>{{ bd.note }}</td>
       <td>

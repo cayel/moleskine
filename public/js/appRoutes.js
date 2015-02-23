@@ -9,10 +9,16 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     controller: 'MainController'
   })
 
-  // nerds page that will use the NerdController
+  // BD
   .when('/bds', {
     templateUrl: 'views/bds.html',
     controller: 'BdController'
+  })
+
+   // Concerts
+  .when('/concerts', {
+    templateUrl: 'views/concerts.html',
+    controller: 'ConcertController'
   })
 
   // todos
