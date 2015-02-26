@@ -22,4 +22,24 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
 	.error(function(data) {
 		// console.log('Error: ' + data);
 	});
+	
+	// Liste des films
+	$http.get('/api/films')
+	.success(function(data) {
+		$scope.films = data;
+		// console.log(data);
+	})
+	.error(function(data) {
+		// console.log('Error: ' + data);
+	});
+	
+	// Liste des books
+	$http.get('/api/books')
+	.success(function(data) {
+		$scope.books = data;
+		// console.log(data);
+	})
+	.error(function(data) {
+		// console.log('Error: ' + data);
+	});
 });

@@ -4,6 +4,8 @@
 var Todo = require('../models/Todo.js');
 var Bd = require('../models/Bd.js');
 var Concert = require('../models/Concert.js');
+var Book = require('../models/Book.js');
+var Film = require('../models/Film.js');
 
 module.exports = function(app) {
 
@@ -234,6 +236,163 @@ app.put('/api/bd/:bd_id',function(req, res) {
         });
     });
 
+	////////////////////////////////////////////
+	// API Livres
+	////////////////////////////////////////////
+	
+	// Liste des livres
+	app.get('/api/books', function(req, res) {
+		Book.find(function(err, books) {
+			if (err)
+				res.send(err)
+             res.json(books); 
+        });
+    });
+
+	// Création d'un livre et renvoi de la liste des livres
+	app.post('/api/books', function(req, res) {
+		Book.create({
+			titre : req.body.titre,
+			auteur : req.body.auteur,
+			date : req.body.date,
+			note : req.body.note
+		}, function(err, book) {
+			if (err)
+				res.send(err);
+			Book.find(function(err, books) {
+				if (err)
+					res.send(err)
+				res.json(books);
+			});
+		});
+    });
+
+	// Mise à jour d'un livre
+	app.put('/api/book/:book_id',function(req, res) {
+		console.log(req.params.book_id);
+		Book.findOne({_id: req.params.book_id},function(err, book) {
+			if (book){
+				book.titre = req.body.titre;
+				book.auteur = req.body.auteur,
+				book.date = req.body.date,
+				book.note = req.body.note
+				book.save(function(err) {
+					if (err) res.send(err);
+					Book.find(function(err, books) {
+						if (err)
+							res.send(err)
+						res.json(books);
+					});
+				});
+            } else {
+				console.log('erreur findone');
+				res.send(err);
+			}
+		});
+	});
+
+	// Suppression d'un livre
+	app.delete('/api/book/:book_id', function(req, res) {
+		Book.remove({
+			_id : req.params.book_id
+		}, function(err, book) {
+			if (err)
+				res.send(err);
+            Book.find(function(err, books) {
+				if (err)
+					res.send(err)
+				res.json(books);
+            });
+        });
+    });
+
+	// Récupération d'un livre
+	app.get('/api/book/:book_id', function(req, res, next) {
+		Book.findById(req.params.book_id, function (err, book) {
+			if (err) return next(err);
+            res.json(book);
+        });
+    });	
+	
+	////////////////////////////////////////////
+	// API Films
+	////////////////////////////////////////////
+	
+	// Liste des films
+	app.get('/api/films', function(req, res) {
+		Film.find(function(err, films) {
+			if (err)
+				res.send(err)
+             res.json(films); 
+        });
+    });
+
+	// Création d'un film et renvoi de la liste des films
+	app.post('/api/films', function(req, res) {
+		Film.create({
+			titre : req.body.titre,
+			realisateur : req.body.realisateur,
+			cine : req.body.cine,
+			date : req.body.date,
+			note : req.body.note
+		}, function(err, film) {
+			if (err)
+				res.send(err);
+			Film.find(function(err, films) {
+				if (err)
+					res.send(err)
+				res.json(films);
+			});
+		});
+    });
+
+	// Mise à jour d'un film
+	app.put('/api/film/:film_id',function(req, res) {
+		console.log(req.params.film_id);
+		Film.findOne({_id: req.params.film_id},function(err, film) {
+			if (film){
+				film.titre = req.body.titre;
+				film.realisateur = req.body.realisateur,
+				film.cine = req.body.cine,
+				film.date = req.body.date,
+				film.note = req.body.note
+				film.save(function(err) {
+					if (err) res.send(err);
+					Film.find(function(err, films) {
+						if (err)
+							res.send(err)
+						res.json(films);
+					});
+				});
+            } else {
+				console.log('erreur findone');
+				res.send(err);
+			}
+		});
+	});
+
+	// Suppression d'un film
+	app.delete('/api/film/:film_id', function(req, res) {
+		Film.remove({
+			_id : req.params.film_id
+		}, function(err, film) {
+			if (err)
+				res.send(err);
+            Film.find(function(err, films) {
+				if (err)
+					res.send(err)
+				res.json(films);
+            });
+        });
+    });
+
+	// Récupération d'un film
+	app.get('/api/film/:film_id', function(req, res, next) {
+		Film.findById(req.params.film_id, function (err, film) {
+			if (err) return next(err);
+            res.json(film);
+        });
+    });	
 					  // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {

@@ -21,6 +21,18 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     controller: 'ConcertController'
   })
 
+   // Films
+  .when('/films', {
+    templateUrl: 'views/films.html',
+    controller: 'FilmController'
+  })
+
+     // Livres
+  .when('/books', {
+    templateUrl: 'views/books.html',
+    controller: 'BookController'
+  })
+
   // todos
   .when('/todos', {
     templateUrl: 'views/todos.html',
