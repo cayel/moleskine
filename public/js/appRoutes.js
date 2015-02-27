@@ -27,7 +27,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     controller: 'FilmController'
   })
 
-     // Livres
+   // Livres
   .when('/books', {
     templateUrl: 'views/books.html',
     controller: 'BookController'
@@ -37,6 +37,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
   .when('/todos', {
     templateUrl: 'views/todos.html',
     controller: 'ToDoController'
+  })
+
+  // Administration
+  .when('/admin', {
+    templateUrl: 'views/admin.html',
+    controller: 'AdminController'
   });
 
   $locationProvider.html5Mode(true);
