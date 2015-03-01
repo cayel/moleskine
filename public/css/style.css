@@ -1,3 +1,10 @@
-.list-group{
-	width: 200px;
+.list-group {
+  background-color: #bcd;
+  border-radius: 8px;
+  padding-bottom: 5px;
+}
+.list-group-item.header{
+  color: #048;
+  background-color: #abc;
+  border-radius: 8px;
 }

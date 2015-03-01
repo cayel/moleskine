@@ -1,20 +1,51 @@
 <!-- public/views/home.html -->
 
 <div class="jumbotron text-center">
-  <h1>Accueil Moleskine</h1>
+  <h1>Accueil</h1>
   <p>{{ tagline }}</p>
 </div>  
-<div class="list-group">
-	<a href="/films" class="list-group-item">
-        <span class="glyphicon glyphicon-film"></span> Films <span class="badge">{{films.length}}</span>
-    </a>
-    <a href="/bds" class="list-group-item">
-        <span class="glyphicon glyphicon-pencil"></span> BDs <span class="badge">{{bds.length}}</span>
-    </a>
-    <a href="/concerts" class="list-group-item">
-        <span class="glyphicon glyphicon-music"></span> Concerts <span class="badge">{{concerts.length}}</span>
-    </a>
-    <a href="/books" class="list-group-item">
-        <span class="glyphicon glyphicon-book"></span> Livres <span class="badge">{{books.length}}</span>
-    </a>
-</div>
+<div class="row">
+	<div class="col-md-3">
+		<div class="list-group">
+			<a href="/films" class="list-group-item">
+				<span class="glyphicon glyphicon-film"></span> Films <span class="badge">{{films.length}}</span>
+			</a>
+			<a href="/bds" class="list-group-item">
+				<span class="glyphicon glyphicon-pencil"></span> BDs <span class="badge">{{bds.length}}</span>
+			</a>
+			<a href="/concerts" class="list-group-item">
+				<span class="glyphicon glyphicon-music"></span> Concerts <span class="badge">{{concerts.length}}</span>
+			</a>
+			<a href="/books" class="list-group-item">
+				<span class="glyphicon glyphicon-book"></span> Livres <span class="badge">{{books.length}}</span>
+			</a>
+		</div>
+	</div> 
+	<div class="col-md-9">
+		<ul class="list-group" >
+			<li class="list-group-item header disabled">Mes derniers films</li>
+			<li class="list-group-item" ng-repeat="film in films | orderBy:'-date' | limitTo:3">
+				{{film.titre}} - {{film.realisateur}}
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item header disabled">Mes dernières BDs</li>
+			<li class="list-group-item" ng-repeat="bd in bds | orderBy:'-date' | limitTo:3">
+				{{bd.titre}}
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item header disabled">Mes derniers livres</li>
+			<li class="list-group-item" ng-repeat="book in books | orderBy:'-date' | limitTo:3">		
+				{{book.titre}} - {{book.auteur}}
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item header disabled">Mes derniers concerts</li>
+			<li class="list-group-item" ng-repeat="concert in concerts | orderBy:'-date' | limitTo:3">
+				{{concert.artiste}} - {{concert.salle}}
+			</li>
+		</ul>
+	</div>
+</div> 
+

@@ -326,7 +326,17 @@ app.put('/api/bd/:bd_id',function(req, res) {
              res.json(films); 
         });
     });
-
+/*
+	// Liste des films 2015
+	app.get('/api/films/last3', function(req, res) {
+		//Film.find({ date : { $gt: "01/01/2015" } }, function(err, films) {
+		Film.find().limit(3).sort({date : 'desc'}).exec( function(err, films) {		
+			if (err)
+				res.send(err)
+             res.json(films); 
+        });
+    });
+*/
 	// Création d'un film et renvoi de la liste des films
 	app.post('/api/films', function(req, res) {
 		Film.create({
