@@ -15,6 +15,9 @@ angular.module('ToDoService', []).factory('ToDo', ['$http', function($http) {
     // call to DELETE a todo
     delete : function(id) {
       return $http.delete('/api/todos/' + id);
+    },
+    getDate : function () {
+      return (new Date());
     }
   }
 

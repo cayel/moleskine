@@ -1,7 +1,10 @@
 // public/js/controllers/bookCtrl.js
-angular.module('BookCtrl', []).controller('BookController', function($scope, $http) {
+angular.module('BookCtrl', ["DateService"]).controller('BookController', function($scope, $http, DateService) {
 
 	$scope.tagline = 'Des livres, rien que des livres ...';			
+
+	$scope.months = DateService.getMonthList();	
+	$scope.years = DateService.getYearList();
 	
 	// Recherche
 	$scope.recherche = null;
@@ -12,7 +15,11 @@ angular.module('BookCtrl', []).controller('BookController', function($scope, $ht
 	// Saisie d'un nouveau livre
 	$scope.newBook = function () {
 		$scope.dateBook='';
-		$scope.formData = {};
+		$scope.formData = {};		
+		theDate = DateService.getDateNow();
+		$scope.formData.yearId = theDate.getFullYear();
+		$scope.formData.monthId = theDate.getMonth()+1;
+		$scope.formData.dayId = theDate.getDate();
 		$scope.vueBook = 'newBook';
 	};
 
@@ -28,7 +35,7 @@ angular.module('BookCtrl', []).controller('BookController', function($scope, $ht
 
 	// Création d'un livre
 	$scope.createBook = function() {
-		$scope.formData.date=$scope.dateBook.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.post('/api/books', $scope.formData)
 		.success(function(data) {
 			$scope.formData = {}; // clear the form so our user is ready to enter another
@@ -52,11 +59,11 @@ angular.module('BookCtrl', []).controller('BookController', function($scope, $ht
 	$scope.getBook = function(id) {
 		$http.get('/api/book/' + id)
 		.success(function(data) {
-			$scope.formData = data;  
-			annee = $scope.formData.date.substring(0,4);
-			jour = $scope.formData.date.substring(8,10);
-			mois = $scope.formData.date.substring(5,7);
-			$scope.dateBook = new Date(annee,mois-1,jour,24);
+			$scope.formData = data;
+			theDate = new Date($scope.formData.date);
+			$scope.formData.yearId = theDate.getFullYear();
+			$scope.formData.monthId = theDate.getMonth()+1;
+			$scope.formData.dayId = theDate.getDate();
 			$scope.vueBook = 'modifBook';
 		})
 		.error(function(data) {
@@ -66,7 +73,7 @@ angular.module('BookCtrl', []).controller('BookController', function($scope, $ht
 
 	// Mise à jour d'un livre
 	$scope.updateBook = function(id) {
-		$scope.formData.date=$scope.dateBook.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.put('/api/book/' + id, $scope.formData)
 		.success(function(data) {
 			$scope.books = data;
