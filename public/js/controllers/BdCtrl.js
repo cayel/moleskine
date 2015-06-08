@@ -1,7 +1,10 @@
 // public/js/controllers/BdCtrl.js
-angular.module('BdCtrl', []).controller('BdController', function($scope, $http) {
+angular.module('BdCtrl', ["DateService"]).controller('BdController', function($scope, $http, DateService) {
 
-	$scope.tagline = 'Des BDs, rien que des BDs ...';			
+	$scope.tagline = 'Des BDs, rien que des BDs ...';
+	$scope.months = DateService.getMonthList();	
+	$scope.years = DateService.getYearList();
+			
 	
 	// Recherche
 	$scope.recherche = null;
@@ -13,6 +16,10 @@ angular.module('BdCtrl', []).controller('BdController', function($scope, $http) 
 	$scope.newBd = function () {
 		$scope.dateBd='';
 		$scope.formData = {};
+		theDate = DateService.getDateNow();
+		$scope.formData.yearId = theDate.getFullYear();
+		$scope.formData.monthId = theDate.getMonth()+1;
+		$scope.formData.dayId = theDate.getDate();		
 		$scope.vueBd = 'newBd';
 	};
 
@@ -28,7 +35,7 @@ angular.module('BdCtrl', []).controller('BdController', function($scope, $http) 
 
 	// Création d'une BD
 	$scope.createBd = function() {
-		$scope.formData.date=$scope.dateBd.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.post('/api/bds', $scope.formData)
 		.success(function(data) {
 			$scope.formData = {}; // clear the form so our user is ready to enter another
@@ -53,10 +60,10 @@ angular.module('BdCtrl', []).controller('BdController', function($scope, $http) 
 		$http.get('/api/bd/' + id)
 		.success(function(data) {
 			$scope.formData = data;  
-			annee = $scope.formData.date.substring(0,4);
-			jour = $scope.formData.date.substring(8,10);
-			mois = $scope.formData.date.substring(5,7);
-			$scope.dateBd = new Date(annee,mois-1,jour,24);
+			theDate = new Date($scope.formData.date);
+			$scope.formData.yearId = theDate.getFullYear();
+			$scope.formData.monthId = theDate.getMonth()+1;
+			$scope.formData.dayId = theDate.getDate();
 			$scope.vueBd = 'modifBd';
 		})
 		.error(function(data) {
@@ -66,7 +73,7 @@ angular.module('BdCtrl', []).controller('BdController', function($scope, $http) 
 
 	// Mise à jour d'une BD
 	$scope.updateBd = function(id) {
-		$scope.formData.date=$scope.dateBd.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.put('/api/bd/' + id, $scope.formData)
 		.success(function(data) {
 			$scope.bds = data;

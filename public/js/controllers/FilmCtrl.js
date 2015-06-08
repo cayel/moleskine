@@ -1,8 +1,11 @@
 // public/js/controllers/FilmCtrl.js
-angular.module('FilmCtrl', []).controller('FilmController', function($scope, $http) {
+angular.module('FilmCtrl', ["DateService"]).controller('FilmController', function($scope, $http, DateService) {
 
 	$scope.tagline = 'Des films, rien que des films ...';			
 	
+	$scope.months = DateService.getMonthList();	
+	$scope.years = DateService.getYearList();
+
 	// Recherche
 	$scope.recherche = null;
 	$scope.razRecherche = function() {
@@ -13,6 +16,10 @@ angular.module('FilmCtrl', []).controller('FilmController', function($scope, $ht
 	$scope.newFilm = function () {
 		$scope.datefilm='';
 		$scope.formData = {};
+		theDate = DateService.getDateNow();
+		$scope.formData.yearId = theDate.getFullYear();
+		$scope.formData.monthId = theDate.getMonth()+1;
+		$scope.formData.dayId = theDate.getDate();		
 		$scope.vueFilm = 'newFilm';
 	};
 
@@ -28,7 +35,7 @@ angular.module('FilmCtrl', []).controller('FilmController', function($scope, $ht
 
 	// Création d'une film
 	$scope.createFilm = function() {
-		$scope.formData.date=$scope.dateFilm.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.post('/api/films', $scope.formData)
 		.success(function(data) {
 			$scope.formData = {}; // clear the form so our user is ready to enter another
@@ -53,10 +60,10 @@ angular.module('FilmCtrl', []).controller('FilmController', function($scope, $ht
 		$http.get('/api/film/' + id)
 		.success(function(data) {
 			$scope.formData = data;  
-			annee = $scope.formData.date.substring(0,4);
-			jour = $scope.formData.date.substring(8,10);
-			mois = $scope.formData.date.substring(5,7);
-			$scope.dateFilm = new Date(annee,mois-1,jour,24);
+			theDate = new Date($scope.formData.date);
+			$scope.formData.yearId = theDate.getFullYear();
+			$scope.formData.monthId = theDate.getMonth()+1;
+			$scope.formData.dayId = theDate.getDate();
 			$scope.vueFilm = 'modifFilm';
 		})
 		.error(function(data) {
@@ -66,7 +73,7 @@ angular.module('FilmCtrl', []).controller('FilmController', function($scope, $ht
 
 	// Mise à jour d'une film
 	$scope.updateFilm = function(id) {
-		$scope.formData.date=$scope.dateFilm.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.put('/api/film/' + id, $scope.formData)
 		.success(function(data) {
 			$scope.films = data;

@@ -1,7 +1,11 @@
 // public/js/controllers/ConcertCtrl.js
-angular.module('ConcertCtrl', []).controller('ConcertController', function($scope, $http) {
+angular.module('ConcertCtrl', ["DateService"]).controller('ConcertController', function($scope, $http, DateService) {
 
-	$scope.tagline = 'Des Concerts, rien que des Concerts ...';			
+	$scope.tagline = 'Des Concerts, rien que des Concerts ...';	
+
+	$scope.months = DateService.getMonthList();	
+	$scope.years = DateService.getYearList();
+		
 	
 	// Recherche
 	$scope.recherche = null;
@@ -13,6 +17,10 @@ angular.module('ConcertCtrl', []).controller('ConcertController', function($scop
 	$scope.newConcert = function () {
 		$scope.dateConcert='';
 		$scope.formData = {};
+		theDate = DateService.getDateNow();
+		$scope.formData.yearId = theDate.getFullYear();
+		$scope.formData.monthId = theDate.getMonth()+1;
+		$scope.formData.dayId = theDate.getDate();		
 		$scope.vueConcert = 'newConcert';
 	};
 
@@ -28,7 +36,7 @@ angular.module('ConcertCtrl', []).controller('ConcertController', function($scop
 
 	// Création d'un Concert
 	$scope.createConcert = function() {
-		$scope.formData.date=$scope.dateConcert.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.post('/api/concerts', $scope.formData)
 		.success(function(data) {
 			$scope.formData = {}; // clear the form so our user is ready to enter another
@@ -53,10 +61,10 @@ angular.module('ConcertCtrl', []).controller('ConcertController', function($scop
 		$http.get('/api/concert/' + id)
 		.success(function(data) {
 			$scope.formData = data;  
-			annee = $scope.formData.date.substring(0,4);
-			jour = $scope.formData.date.substring(8,10);
-			mois = $scope.formData.date.substring(5,7);
-			$scope.dateConcert = new Date(annee,mois-1,jour,24);
+			theDate = new Date($scope.formData.date);
+			$scope.formData.yearId = theDate.getFullYear();
+			$scope.formData.monthId = theDate.getMonth()+1;
+			$scope.formData.dayId = theDate.getDate();
 			$scope.vueConcert = 'modifConcert';
 		})
 		.error(function(data) {
@@ -66,7 +74,7 @@ angular.module('ConcertCtrl', []).controller('ConcertController', function($scop
 
 	// Mise à jour d'un Concert
 	$scope.updateConcert = function(id) {
-		$scope.formData.date=$scope.dateConcert.toDateString();
+		$scope.formData.date= new Date($scope.formData.yearId, $scope.formData.monthId-1, $scope.formData.dayId);
 		$http.put('/api/concert/' + id, $scope.formData)
 		.success(function(data) {
 			$scope.concerts = data;

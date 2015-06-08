@@ -68,7 +68,17 @@
             <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
             <input type="text" class="form-control input-lg text-center" placeholder="Scenariste" ng-model="formData.scenariste">
             <input type="text" class="form-control input-lg text-center" placeholder="Dessinateur" ng-model="formData.dessinateur">
-            <input type="date"  placeholder="Date" class="form-control input-lg text-center" ng-model="dateBd">         
+            <div class="form-inline">
+              <select class="form-control input-lg" ng-model="formData.dayId">
+                <option ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]" value="{{n}}" ng-selected="n == formData.dayId">{{n}}</option>
+              </select>
+              <select class="form-control input-lg" ng-model="formData.monthId">
+                <option ng-repeat="month in months" value="{{month.MonthId}}" ng-selected="month.MonthId == formData.monthId">{{month.MonthName}}</option>
+              </select>
+              <select class="form-control input-lg" ng-model="formData.yearId">
+                <option ng-repeat="year in years" value="{{year.YearId}}" ng-selected="year.YearId == formData.yearId">{{year.YearName}}</option>
+              </select>
+            </div>            
             <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note" >
           </div>
         </form>
