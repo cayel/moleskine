@@ -5,6 +5,11 @@
 </div>
 
 <div class="spacer input-group">
+  <div class="input-group-btn">
+  <button class="btn btn-default" data-toggle="modal" data-target="#concertModal" ng_click="newConcert()">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
+</div>
 	<div class="input-group-addon">
 		<span class="glyphicon glyphicon-search"></span>
 	</div>
@@ -15,30 +20,38 @@
 		</button>
 	</div>
 </div>
+
 <br>
+
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
-      <th style="width:6%;">Date</th>
+      <th style="width:6%;">
+        <a ng-click="triConcerts('date')">Date</a>
+        <span class="hSpacer" ng-class="cssChevronsTri('date')"></span>
+      </th>
       <th style="width:31%;">Artiste</th>
       <th style="width:25%;">Avec</th>
       <th style="width:25%;">Salle</th>
-      <th style="width:4%;">Note</th>
-      <th style="width:9%;"></th>
+      <th style="width:6%;">
+        <a ng-click="triConcerts('note')">Note</a>
+        <span class="hSpacer" ng-class="cssChevronsTri('note')"></span>
+      </th>
+      <th style="width:6%;"></th>
     </tr>
   </thead>
   <tbody>
-    <tr  ng-repeat="concert in concerts | filter:recherche">
+    <tr  ng-repeat="concert in concerts | filter:recherche | orderBy:champTri:triDescendant">
       <td>{{ concert.date | date:'dd/MM/yyyy'}}</td>
       <td>{{ concert.artiste }}</td>
       <td>{{ concert.avec }}</td>	  
       <td>{{ concert.salle }}</td>
       <td>{{ concert.note }}</td>
       <td>
-        <button type="button" class="btn btn-default" aria-label="Modifier" ng-click="getConcert(concert._id)" data-toggle="modal" data-target="#concertModal">
+        <button type="button" class="btn btn-xs btn-default" aria-label="Modifier" ng-click="getConcert(concert._id)" data-toggle="modal" data-target="#concertModal">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </button>
-        <button type="button" type="submit" class="btn btn-default" aria-label="Supprimer" ng-click="deleteConcert(concert._id)">
+        <button type="button" type="submit" class="btn btn-xs btn-default" aria-label="Supprimer" ng-click="deleteConcert(concert._id)">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
       </td>
@@ -47,10 +60,6 @@
 </table>
 
 <!-- FORM TO CREATE CONCERTS -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#concertModal" ng_click="newConcert()">
-  Ajouter un Concert
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="concertModal" tabindex="-1" role="dialog" aria-labelledby="concertModalLabel" aria-hidden="true">
