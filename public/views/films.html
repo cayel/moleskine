@@ -5,40 +5,52 @@
 </div>
 
 <div class="spacer input-group">
-	<div class="input-group-addon">
-		<span class="glyphicon glyphicon-search"></span>
-	</div>
-	<input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher ..."/>
-	<div class="input-group-btn">
-		<button class="btn btn-default" ng-click="razRecherche()">
-			<span class="glyphicon glyphicon-remove"></span>
-		</button>
-	</div>
+  <div class="input-group-btn">
+  <button class="btn btn-default" data-toggle="modal" data-target="#filmModal" ng_click="newFilm()">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
 </div>
+  <div class="input-group-addon">
+    <span class="glyphicon glyphicon-search"></span>
+  </div>
+  <input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher ..."/>
+  <div class="input-group-btn">
+    <button class="btn btn-default" ng-click="razRecherche()">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
+</div>
+
 <br>
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
-      <th style="width:6%;">Date</th>
+      <th style="width:6%;">
+        <a ng-click="triFilms('date')">Date</a>
+        <span class="hSpacer" ng-class="cssChevronsTri('date')"></span>
+      </th>
       <th style="width:31%;">Titre</th>
       <th style="width:25%;">Réalisateur</th>
       <th style="width:25%;">Ciné</th>
-      <th style="width:4%;">Note</th>
-      <th style="width:9%;"></th>
+      <th style="width:6%;">
+        <a ng-click="triFilms('note')">Note</a>
+        <span class="hSpacer" ng-class="cssChevronsTri('note')"></span>
+      </th>
+      <th style="width:7%;"></th>
     </tr>
   </thead>
   <tbody>
-    <tr  ng-repeat="film in films | filter:recherche">
+    <tr  ng-repeat="film in films | filter:recherche | orderBy:champTri:triDescendant">
       <td>{{ film.date | date:'dd/MM/yyyy'}}</td>
       <td>{{ film.titre }}</td>
       <td>{{ film.realisateur }}</td>	  
       <td>{{ film.cine }}</td>
       <td>{{ film.note }}</td>
       <td>
-        <button type="button" class="btn btn-default" aria-label="Modifier" ng-click="getFilm(film._id)" data-toggle="modal" data-target="#filmModal">
+        <button type="button" class="btn btn-xs btn-default" aria-label="Modifier" ng-click="getFilm(film._id)" data-toggle="modal" data-target="#filmModal">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </button>
-        <button type="button" type="submit" class="btn btn-default" aria-label="Supprimer" ng-click="deleteFilm(film._id)">
+        <button type="button" type="submit" class="btn btn-xs btn-default" aria-label="Supprimer" ng-click="deleteFilm(film._id)">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
       </td>
@@ -47,10 +59,7 @@
 </table>
 
 <!-- FORM TO CREATE filmS -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#filmModal" ng_click="newFilm()">
-  Ajouter un film
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="filmModal" tabindex="-1" role="dialog" aria-labelledby="filmModalLabel" aria-hidden="true">
