@@ -33,11 +33,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     controller: 'BookController'
   })
 
-  // todos
-  .when('/todos', {
-    templateUrl: 'views/todos.html',
-    controller: 'ToDoController'
-  })
 
   // Administration
   .when('/admin', {
