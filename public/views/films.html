@@ -29,9 +29,9 @@
         <a ng-click="triFilms('date')">Date</a>
         <span class="hSpacer" ng-class="cssChevronsTri('date')"></span>
       </th>
-      <th style="width:31%;">Titre</th>
-      <th style="width:25%;">Réalisateur</th>
-      <th style="width:25%;">Ciné</th>
+      <th style="width:41%;">Titre</th>
+      <th style="width:35%;">Réalisateur</th>
+      <th style="width:5%;">Ciné</th>
       <th style="width:6%;">
         <a ng-click="triFilms('note')">Note</a>
         <span class="hSpacer" ng-class="cssChevronsTri('note')"></span>
@@ -43,10 +43,17 @@
     <tr  ng-repeat="film in films | filter:recherche | orderBy:champTri:triDescendant">
       <td>{{ film.date | date:'dd/MM/yyyy'}}</td>
       <td>{{ film.titre }}</td>
-      <td>{{ film.realisateur }}</td>	  
-      <td>{{ film.cine }}</td>
-      <td>{{ film.note }}</td>
-      <td>
+      <td>{{ film.realisateur }}</td>
+      <td align="center">
+        <div ng-if="film.cine==true">
+          <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+        </div>
+        <div ng-if="film.cine!=true">
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </div>
+      </td>
+      <td align="center">{{ film.note }}</td>
+      <td align="center">
         <button type="button" class="btn btn-xs btn-default" aria-label="Modifier" ng-click="getFilm(film._id)" data-toggle="modal" data-target="#filmModal">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </button>
@@ -72,7 +79,7 @@
       <div class="modal-body">
         <form name="filmForm">
           <div class="form-group">
-            
+
             <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
             <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
             <input type="text" class="form-control input-lg text-center" placeholder="Réalisateur" ng-model="formData.realisateur">
@@ -87,7 +94,7 @@
               <select class="form-control input-lg" ng-model="formData.yearId">
                 <option ng-repeat="year in years" value="{{year.YearId}}" ng-selected="year.YearId == formData.yearId">{{year.YearName}}</option>
               </select>
-            </div>            
+            </div>
             <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note" >
           </div>
         </form>
