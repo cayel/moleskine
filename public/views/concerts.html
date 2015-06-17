@@ -26,14 +26,14 @@
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
-      <th style="width:6%;">
+      <th align="center" style="width:6%;">
         <a ng-click="triConcerts('date')">Date</a>
         <span class="hSpacer" ng-class="cssChevronsTri('date')"></span>
       </th>
-      <th style="width:31%;">Artiste</th>
-      <th style="width:25%;">Avec</th>
-      <th style="width:25%;">Salle</th>
-      <th style="width:6%;">
+      <th align="center" style="width:31%;">Artiste</th>
+      <th align="center" style="width:25%;">Avec</th>
+      <th align="center" style="width:25%;">Salle</th>
+      <th align="center" style="width:6%;">
         <a ng-click="triConcerts('note')">Note</a>
         <span class="hSpacer" ng-class="cssChevronsTri('note')"></span>
       </th>
@@ -44,7 +44,7 @@
     <tr  ng-repeat="concert in concerts | filter:recherche | orderBy:champTri:triDescendant">
       <td>{{ concert.date | date:'dd/MM/yyyy'}}</td>
       <td>{{ concert.artiste }}</td>
-      <td>{{ concert.avec }}</td>	  
+      <td>{{ concert.avec }}</td>
       <td>{{ concert.salle }}</td>
       <td>{{ concert.note }}</td>
       <td>
@@ -72,7 +72,7 @@
       <div class="modal-body">
         <form name="concertForm">
           <div class="form-group">
-            
+
             <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
             <input type="text" class="form-control input-lg text-center" placeholder="Artiste" ng-model="formData.artiste">
             <input type="text" class="form-control input-lg text-center" placeholder="Avec" ng-model="formData.avec">
@@ -87,7 +87,7 @@
               <select class="form-control input-lg" ng-model="formData.yearId">
                 <option ng-repeat="year in years" value="{{year.YearId}}" ng-selected="year.YearId == formData.yearId">{{year.YearName}}</option>
               </select>
-            </div>            
+            </div>
             <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note" >
           </div>
         </form>
