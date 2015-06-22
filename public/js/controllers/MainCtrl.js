@@ -1,8 +1,8 @@
 // public/js/controllers/MainCtrl.js
-angular.module('MainCtrl', []).controller('MainController', function($scope, $http) {
+angular.module('MainCtrl', ['chart.js']).controller('MainController', function($scope, $http) {
 
   $scope.tagline = 'Ce que je lis et je regarde ...';
-	
+
 	// Liste des BDs
 	$http.get('/api/bds')
 	.success(function(data) {
@@ -22,7 +22,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
 	.error(function(data) {
 		// console.log('Error: ' + data);
 	});
-	
+
 	// Liste des films
 	$http.get('/api/films')
 	.success(function(data) {
@@ -32,7 +32,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
 	.error(function(data) {
 		// console.log('Error: ' + data);
 	});
-	
+
 	// Liste des books
 	$http.get('/api/books')
 	.success(function(data) {
@@ -42,4 +42,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
 	.error(function(data) {
 		// console.log('Error: ' + data);
 	});
+
+
+
 });

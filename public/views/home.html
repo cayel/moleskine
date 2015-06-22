@@ -3,7 +3,7 @@
 <div class="jumbotron text-center">
   <h1>Accueil</h1>
   <p>{{ tagline }}</p>
-</div>  
+</div>
 <div class="row">
 	<div class="col-md-3">
 		<div class="list-group">
@@ -20,7 +20,7 @@
 				<span class="glyphicon glyphicon-book"></span> Livres <span class="badge">{{books.length}}</span>
 			</a>
 		</div>
-	</div> 
+	</div>
 	<div class="col-md-9">
 		<ul class="list-group" >
 			<li class="list-group-item header disabled">Mes derniers films</li>
@@ -36,7 +36,7 @@
 		</ul>
 		<ul class="list-group">
 			<li class="list-group-item header disabled">Mes derniers livres</li>
-			<li class="list-group-item" ng-repeat="book in books | orderBy:'-date' | limitTo:3">		
+			<li class="list-group-item" ng-repeat="book in books | orderBy:'-date' | limitTo:3">
 				{{book.titre}} - {{book.auteur}}
 			</li>
 		</ul>
@@ -47,5 +47,4 @@
 			</li>
 		</ul>
 	</div>
-</div> 
-
+</div>

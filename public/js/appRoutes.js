@@ -33,6 +33,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     controller: 'BookController'
   })
 
+    // Statistiques
+   .when('/stats', {
+     templateUrl: 'views/stats.html',
+     controller: 'StatController'
+   })
+
 
   // Administration
   .when('/admin', {
