@@ -34,10 +34,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
   })
 
     // Statistiques
-   .when('/stats', {
-     templateUrl: 'views/stats.html',
-     controller: 'StatController'
-   })
+   //.when('/stats', {
+//     templateUrl: 'views/stats.html',
+  //   controller: 'StatController'
+   //})
 
 
   // Administration

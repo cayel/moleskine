@@ -1,5 +1,6 @@
 // public/js/controllers/MainCtrl.js
-angular.module('MainCtrl', ['chart.js']).controller('MainController', function($scope, $http) {
+//angular.module('MainCtrl', ['chart.js']).controller('MainController', function($scope, $http) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $http) {
 
   $scope.tagline = 'Ce que je lis et je regarde ...';
 
