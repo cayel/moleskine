@@ -21,17 +21,11 @@
 			</a>
 		</div>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-6">
 		<ul class="list-group" >
 			<li class="list-group-item header disabled">Mes derniers films</li>
 			<li class="list-group-item" ng-repeat="film in films | orderBy:'-date' | limitTo:3">
 				{{film.titre}} - {{film.realisateur}}
-			</li>
-		</ul>
-		<ul class="list-group">
-			<li class="list-group-item header disabled">Mes dernières BDs</li>
-			<li class="list-group-item" ng-repeat="bd in bds | orderBy:'-date' | limitTo:3">
-				{{bd.titre}}
 			</li>
 		</ul>
 		<ul class="list-group">
@@ -40,10 +34,18 @@
 				{{book.titre}} - {{book.auteur}}
 			</li>
 		</ul>
+	</div>
+	<div class="col-md-3">
+		<ul class="list-group">
+			<li class="list-group-item header disabled">Mes dernières BDs</li>
+			<li class="list-group-item" ng-repeat="bd in bds | orderBy:'-date' | limitTo:3">
+				{{bd.titre}}
+			</li>
+		</ul>
 		<ul class="list-group">
 			<li class="list-group-item header disabled">Mes derniers concerts</li>
 			<li class="list-group-item" ng-repeat="concert in concerts | orderBy:'-date' | limitTo:3">
-				{{concert.artiste}} - {{concert.salle}}
+				{{concert.artiste}}
 			</li>
 		</ul>
 	</div>
