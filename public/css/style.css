@@ -16,27 +16,19 @@ body {
   padding: 0 0 60px;
 }
 
+/* Set the fixed height of the header here */
+#header {
+  height: 300px;
+  background-color: #D3B8A0;
+  color : #78808A;
+
+}
+
 /* Set the fixed height of the footer here */
 #footer {
   height: 60px;
   background-color: #A8A8A1;
 
-}
-
-/* set the navbar properties */
-
-.navbar-default {
-    color: #FFFFFF;
-    background-color: #242B4B;
-}
-
-.jumbotron {
-  background-color: #D3B8A0;
-  color : #78808A;
-}
-
-.btn-primary {
-  background-color: #b26c60;
 }
 
 /* Custom page CSS
@@ -49,6 +41,10 @@ body {
 .container .credit {
   margin: 20px 0;
 }
+#header > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 #footer > .container {
   padding-left: 15px;
@@ -57,14 +53,4 @@ body {
 
 code {
   font-size: 80%;
-}
-.list-group {
-  background-color: #bcd;
-  border-radius: 8px;
-  padding-bottom: 5px;
-}
-.list-group-item.header{
-  color: #048;
-  background-color: #abc;
-  border-radius: 8px;
 }

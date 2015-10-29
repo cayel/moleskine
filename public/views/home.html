@@ -8,10 +8,8 @@
 <div class="jumbotron text-center">
     <div class="container">
       <div class="row">
-        <div class="col col-lg-12 col-sm-12">
           <h1>Moleskine</h1>
           <p>{{ tagline }}</p>          
-        </div>
       </div>
     </div> 
 </div>
@@ -68,31 +66,45 @@
    <div class="container">
     <div class="row centered">
      <div class="col-md-3">
-      <h4>Films</h4>
+		<p class="text-center">
+	  		<i class="glyphicon glyphicon-film" style="font-size: 30px;"></i>
+		</p>
+      <h4 class="text-center">Films</h4>
       <p>Les films que j'ai regardés depuis quelques années, au cinéma ou à la télévision</p>
-      <p><br/>
+      <p class="text-center"><br/>	 	  	  
 	  	<a class="btn btn-primary" type="button" href="/films">
 			Films <span class="badge">{{films.length}}</span></a>
 		</p>
      </div>
      <div class="col-md-3">
-       <h4>Concerts</h4>
+		<p class="text-center">
+	  		<i class="glyphicon glyphicon-music" style="font-size: 30px;"></i>
+		</p>
+       <h4 class="text-center">Concerts</h4>
        <p>Les concerts que j'ai vus depuis 2009 à Lyon ou ailleurs. </p>
-      <p><br/>
+      <p class="text-center"><br/><br/>
 	  	<a class="btn btn-primary" type="button" href="/concerts">
 			Concerts <span class="badge">{{concerts.length}}</span></a>
 		</p>
       </div>
       <div class="col-md-3">
-       <h4>Livres</h4>
+		<p class="text-center">
+	  		<i class="glyphicon glyphicon-book" style="font-size: 30px;"></i>
+		</p>
+       <h4 class="text-center">Livres</h4>
        <p>Les livres que j'ai lus depuis quelques années.</p>
+	   <p class="text-center"><br/><br/>
 	  	<a class="btn btn-primary" type="button" href="/books">
 			Livres <span class="badge">{{books.length}}</span></a>
 		</p>
       </div>
       <div class="col-md-3">
-       <h4>BDs</h4>
+		<p class="text-center">
+	  		<i class="glyphicon glyphicon-pencil" style="font-size: 30px;"></i>
+		</p>		  
+       <h4 class="text-center">BDs</h4>
        <p>Les BDs que j'ai lues depuis le début de l'année 2014. Et oui, j'ai attendu un peu pour m'y mettre !</p>
+	   <p class="text-center"><br/>
        	 <a class="btn btn-primary" type="button" href="/bds">
 			BDs <span class="badge">{{bds.length}}</span></a>
 		</p>
