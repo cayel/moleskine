@@ -11,11 +11,11 @@ var mongoose       = require('mongoose');
 // config files
 //var db = require('./config/db');
 // TEST-LOCAL
-//mongoose.connect('mongodb://localhost/todoApp', function(err) {
+mongoose.connect('mongodb://localhost/moleskine', function(err) {
 // TEST-DISTANT
 //mongoose.connect('mongodb://moleskine:moleskine@ds029541.mongolab.com:29541/moleskine_test', function(err) {
 // PRODUCTION
-mongoose.connect('mongodb://christophe:christophe@ds031631.mongolab.com:31631/moleskine', function(err) {
+//mongoose.connect('mongodb://christophe:christophe@ds031631.mongolab.com:31631/moleskine', function(err) {
   if(err) {
     console.log('connection error', err);
   } else {
