@@ -27,6 +27,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     controller: 'FilmController'
   })
 
+   // Film Form
+  .when('/formfilm', {
+    templateUrl: 'views/formfilm.html',
+    controller: 'FormFilmController'
+  })
+  
    // Livres
   .when('/books', {
     templateUrl: 'views/books.html',

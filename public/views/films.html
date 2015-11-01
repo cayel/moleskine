@@ -6,9 +6,7 @@
 
 <div class="spacer input-group">
   <div class="input-group-btn">
-  <button class="btn btn-default" data-toggle="modal" data-target="#filmModal" ng_click="newFilm()">
-    <span class="glyphicon glyphicon-plus"></span>
-  </button>
+  <a class = "btn btn-default" href = "formfilm" role = "button"><span class="glyphicon glyphicon-plus"></span></a>
 </div>
   <div class="input-group-addon">
     <span class="glyphicon glyphicon-search"></span>
@@ -54,9 +52,7 @@
       </td>
       <td align="center">{{ film.note }}</td>
       <td align="center">
-        <button type="button" class="btn btn-xs btn-default" aria-label="Modifier" ng-click="getFilm(film._id)" data-toggle="modal" data-target="#filmModal">
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        </button>
+        <a class = "btn btn-xs btn-default"  aria-label="Modifier" href = "formfilm/?id={{film._id}}" role = "button"><span class="glyphicon glyphicon-pencil"></span></a>
         <button type="button" type="submit" class="btn btn-xs btn-default" aria-label="Supprimer" ng-click="deleteFilm(film._id)">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
@@ -64,51 +60,3 @@
     </tr>
   </tbody>
 </table>
-
-<!-- FORM TO CREATE filmS -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="filmModal" tabindex="-1" role="dialog" aria-labelledby="filmModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="filmModalLabel">Fiche Film</h4>
-      </div>
-      <div class="modal-body">
-        <form name="filmForm">
-          <div class="form-group">
-
-            <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-            <input type="text" class="form-control input-lg text-center" placeholder="Titre" ng-model="formData.titre">
-            <input type="text" class="form-control input-lg text-center" placeholder="Réalisateur" ng-model="formData.realisateur">
-            <input type="checkbox" class="form-control input-lg text-center" placeholder="Ciné" ng-model="formData.cine">
-            <div class="form-inline">
-              <select class="form-control input-lg" ng-model="formData.dayId">
-                <option ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]" value="{{n}}" ng-selected="n == formData.dayId">{{n}}</option>
-              </select>
-              <select class="form-control input-lg" ng-model="formData.monthId">
-                <option ng-repeat="month in months" value="{{month.MonthId}}" ng-selected="month.MonthId == formData.monthId">{{month.MonthName}}</option>
-              </select>
-              <select class="form-control input-lg" ng-model="formData.yearId">
-                <option ng-repeat="year in years" value="{{year.YearId}}" ng-selected="year.YearId == formData.yearId">{{year.YearName}}</option>
-              </select>
-            </div>
-            <input type="number" class="form-control input-lg text-center" placeholder="Note" ng-model="formData.note" >
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <div ng-show="vueFilm=='newFilm'">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-          <button type="submit" class="btn btn-primary" ng-click="createFilm()">Enregistrer</button>
-        </div>
-        <div ng-show="vueFilm=='modifFilm'">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-          <button type="submit" class="btn btn-primary" ng-click="updateFilm(formData._id)">Mettre à jour</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
