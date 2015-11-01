@@ -47,13 +47,16 @@
         <div class="form-group">
             <label>Note</label>
             <input type="number" class="form-control" name="note" ng-model="formData.note">
+        </div>            
+      <span class="input-group-btn">
+        <div ng-show="newFilm==true">
+        <button class="btn btn-info" ng-click="createFilm()" >Enregistrer</button>
         </div>
-        <button type="submit" class="btn btn-warning btn-lg" ng-click="createFilm()">Enregistrer</button>
+        <div ng-show="newFilm==false">
+        <button class="btn btn-info" ng-click="updateFilm(formData._id)">Mettre à jour</button>        
+        </div>         
+      </span>        
     </form>
-    <hr>
-    <p>Need an account? <a href="/signup">Signup</a></p>
-    <p>Or go <a href="/">home</a>.</p>
-
 </div>
 
 </div>
