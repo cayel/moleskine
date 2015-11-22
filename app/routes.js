@@ -1,17 +1,67 @@
 // app/routes.js
 
-// grab the nerd model we just created
+
 var Todo = require('../models/Todo.js');
 var Bd = require('../models/Bd.js');
 var Concert = require('../models/Concert.js');
 var Book = require('../models/Book.js');
 var Film = require('../models/Film.js');
+var User = require('../models/Users.js');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var jwt = require('express-jwt');
+var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
 module.exports = function(app) {
 
   // server routes ===========================================================
   // handle things like api calls
   // authentication routes
+  
+  app.post('/register', function(req, res, next){
+  	if(!req.body.username || !req.body.password){
+    	return res.status(400).json({message: 'Please fill out all fields'});
+  	}	
+
+  	var user = new User();
+  	user.username = req.body.username;
+  	user.setPassword(req.body.password)
+  	user.save(function (err){
+    	if(err){ return next(err); }
+    	return res.json({token: user.generateJWT()})
+  	});
+  });
+  
+  app.post('/login', function(req, res, next){
+  if(!req.body.username || !req.body.password){
+    return res.status(400).json({message: 'Please fill out all fields'});
+  }
+
+  passport.authenticate('local', function(err, user, info){
+    if(err){ return next(err); }
+
+    if(user){
+      return res.json({token: user.generateJWT()});
+    } else {
+      	return res.status(401).json(info);
+    	}
+  	})(req, res, next);
+  });
 
   app.get('/api/todos', function(req, res) {
 

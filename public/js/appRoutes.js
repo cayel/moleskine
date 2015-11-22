@@ -38,6 +38,16 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     templateUrl: 'views/books.html',
     controller: 'BookController'
   })
+   // Register
+  .when('/register', {
+    templateUrl: 'views/register.html',
+    controller: 'RegisterController'
+  })  
+  // Login
+  .when('/login', {
+    templateUrl: 'views/login.html',
+    controller: 'RegisterController'
+  })  
 
     // Statistiques
    //.when('/stats', {
