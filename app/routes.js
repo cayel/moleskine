@@ -32,6 +32,32 @@ module.exports = function(app) {
   // server routes ===========================================================
   // handle things like api calls
   // authentication routes
+
+	/**
+	* Get list of users
+	* restriction: 'admin'
+	*/
+	app.get('/api/users', function(req, res) {
+		User.find({}, '-salt -hashedPassword', function (err, users) {
+			if(err) return res.status(500).send(err);
+			res.status(200).json(users);
+		});
+	});
+	
+	// Delete Users
+	app.delete('/api/users/:user_id', function(req, res) {
+		User.remove({
+			_id : req.params.user_id
+		}, function(err, book) {
+			if (err)
+				res.send(err);
+            	User.find(function(err, users) {
+				if (err)
+					res.send(err)
+				res.json(users);
+            });
+        });
+    });
   
   app.post('/register', function(req, res, next){
   	if(!req.body.username || !req.body.password){
