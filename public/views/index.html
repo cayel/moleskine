@@ -63,6 +63,8 @@
           <li><a href="/concerts">Concerts</a></li>
           <li><a href="/bds">BDs</a></li>          
           <!--<li><a href="/stats">Statistiques</a></li>-->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
           <li ng-show="isAdmin()"><a href="/admin">Admin</a></li>
           <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
           <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
