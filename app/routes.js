@@ -58,14 +58,23 @@ module.exports = function(app) {
             });
         });
     });
-  
+
   app.post('/register', function(req, res, next){
-  	if(!req.body.username || !req.body.password){
-    	return res.status(400).json({message: 'Please fill out all fields'});
+  	if(!req.body.username || !req.body.password || !req.body.email){
+    	return res.status(400).json({message: 'Vous devez renseigner toutes les zones'});
+		/* ne fonctionne pas
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    	if (!filter.test(req.body.email)) {
+    		return res.status(400).json({message: 'Adresse email incorrecte'});		
+		}
+		*/		
   	}	
 
   	var user = new User();
   	user.username = req.body.username;
+	user.email = req.body.email;
+	// Admin account	
+	if (user.username == 'cayel') user.role = 'admin';
   	user.setPassword(req.body.password)
   	user.save(function (err){
     	if(err){ return next(err); }

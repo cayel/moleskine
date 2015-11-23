@@ -9,8 +9,8 @@
   <p>Liste des utilisateurs</p>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="user in users">
-        <strong>{{user.username}}</strong><br>
-        <span class="text-muted">adresse email</span>
+        <strong>{{user.username}} ({{user.role}})</strong><br>
+        <span class="text-muted">{{user.email}}</span>
         <a ng-click="delete(user._id)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>       
     </li>
   </ul>
