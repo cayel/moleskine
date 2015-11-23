@@ -6,7 +6,7 @@
 
 <div class="spacer input-group">
   <div class="input-group-btn">
-  <button class="btn btn-default" data-toggle="modal" data-target="#concertModal" ng_click="newConcert()">
+  <button ng-show="isAdmin()" class="btn btn-default" data-toggle="modal" data-target="#concertModal" ng_click="newConcert()">
     <span class="glyphicon glyphicon-plus"></span>
   </button>
 </div>
@@ -37,7 +37,7 @@
         <a ng-click="triConcerts('note')">Note</a>
         <span class="hSpacer" ng-class="cssChevronsTri('note')"></span>
       </th>
-      <th style="width:6%;"></th>
+      <th ng-show="isAdmin()" style="width:6%;"></th>
     </tr>
   </thead>
   <tbody>
@@ -47,7 +47,7 @@
       <td>{{ concert.avec }}</td>
       <td>{{ concert.salle }}</td>
       <td>{{ concert.note }}</td>
-      <td>
+      <td ng-show="isAdmin()">
         <button type="button" class="btn btn-xs btn-default" aria-label="Modifier" ng-click="getConcert(concert._id)" data-toggle="modal" data-target="#concertModal">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </button>

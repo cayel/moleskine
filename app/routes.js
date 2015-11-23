@@ -247,6 +247,11 @@ app.put('/api/bd/:bd_id',function(req, res) {
 	
 	// Liste des concerts
 	app.get('/api/concerts', function(req, res) {
+		//passport.authenticate('basic', { session: false }),
+  		//function(req, res) {
+    	//	res.json({ id: req.user.id, username: req.user.username });
+		//  });
+		//console.log(auth);
 		Concert.find(function(err, concerts) {
 			if (err)
 				res.send(err)

@@ -5,7 +5,7 @@
 </div>
 
 <div class="spacer input-group">
-  <div class="input-group-btn">
+  <div ng-show="isAdmin()" class="input-group-btn">
   <a class = "btn btn-default" href = "formfilm" role = "button"><span class="glyphicon glyphicon-plus"></span></a>
 </div>
   <div class="input-group-addon">
@@ -34,7 +34,7 @@
         <a ng-click="triFilms('note')">Note</a>
         <span class="hSpacer" ng-class="cssChevronsTri('note')"></span>
       </th>
-      <th style="width:7%;"></th>
+      <th ng-show="isAdmin()" style="width:7%;"></th>
     </tr>
   </thead>
   <tbody>
@@ -51,7 +51,7 @@
         </div>
       </td>
       <td align="center">{{ film.note }}</td>
-      <td align="center">
+      <td ng-show="isAdmin()" align="center">
         <a class = "btn btn-xs btn-default"  aria-label="Modifier" href = "formfilm/?id={{film._id}}" role = "button"><span class="glyphicon glyphicon-pencil"></span></a>
         <button type="button" type="submit" class="btn btn-xs btn-default" aria-label="Supprimer" ng-click="deleteFilm(film._id)">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
