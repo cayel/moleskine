@@ -2,11 +2,11 @@ angular.module('AuthService', []).factory('auth', ['$http', '$window', function(
    var auth = {};
 
   auth.saveToken = function (token){
-    $window.localStorage['flapper-news-token'] = token;
+    $window.localStorage['moleskine-token'] = token;
   };
   
   auth.getToken = function (){
-    return $window.localStorage['flapper-news-token'];
+    return $window.localStorage['moleskine-token'];
   }
 
   auth.isLoggedIn = function(){
@@ -19,6 +19,15 @@ angular.module('AuthService', []).factory('auth', ['$http', '$window', function(
     } else {
       return false;
     }
+  };
+  
+  auth.isAdmin = function () {
+    if(auth.isLoggedIn()){
+      var token = auth.getToken();
+      var payload = JSON.parse($window.atob(token.split('.')[1]));
+  
+      return (payload.role=='admin');
+    }    
   };
 
   auth.currentUser = function(){
@@ -43,7 +52,7 @@ angular.module('AuthService', []).factory('auth', ['$http', '$window', function(
   };
 
   auth.logOut = function(){
-    $window.localStorage.removeItem('flapper-news-token');
+    $window.localStorage.removeItem('moleskine-token');
   };
   
   return auth;
